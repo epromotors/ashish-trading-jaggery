@@ -595,6 +595,258 @@
     }
     .reveal.pre-reveal.visible { opacity: 1; transform: none; }
 
+    /* ── HOW IT'S MADE TIMELINE ──────────────────────── */
+    .process {
+      background: var(--dark);
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .process::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(200,114,42,.1) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 40% at 20% 0%, rgba(155,61,18,.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .process .section-label { color: var(--gold); justify-content: center; }
+    .process .section-label::after { display: none; }
+    .process h2 { color: var(--cream); margin-bottom: .6rem; }
+    .process h2 span { color: var(--gold); font-style: italic; }
+    .process-sub { color: rgba(245,226,184,.5); font-size: .95rem; max-width: 500px; margin: 0 auto 5rem; line-height: 1.7; }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    /* Connecting line */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 52px; left: 12.5%; right: 12.5%;
+      height: 2px;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(232,168,62,.15) 10%,
+        rgba(232,168,62,.4) 30%,
+        rgba(232,168,62,.4) 70%,
+        rgba(232,168,62,.15) 90%,
+        transparent);
+      z-index: 0;
+    }
+
+    .step {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 0 1.5rem;
+      position: relative; z-index: 1;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .step.step-visible { opacity: 1; transform: none; }
+    .step:nth-child(1) { transition-delay: .1s; }
+    .step:nth-child(2) { transition-delay: .3s; }
+    .step:nth-child(3) { transition-delay: .5s; }
+    .step:nth-child(4) { transition-delay: .7s; }
+
+    .step-icon {
+      width: 104px; height: 104px; border-radius: 50%;
+      background: rgba(255,255,255,.03);
+      border: 2px solid rgba(232,168,62,.25);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.8rem; position: relative;
+      transition: border-color .3s, background .3s, box-shadow .3s;
+    }
+    .step:hover .step-icon {
+      border-color: rgba(232,168,62,.7);
+      background: rgba(200,114,42,.08);
+      box-shadow: 0 0 30px rgba(200,114,42,.25);
+    }
+    .step-icon svg { width: 44px; height: 44px; }
+
+    /* Pulse ring on icon */
+    .step-icon::after {
+      content: '';
+      position: absolute; inset: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,168,62,.12);
+      animation: stepPulse 3s ease-in-out infinite;
+    }
+    .step:nth-child(2) .step-icon::after { animation-delay: .75s; }
+    .step:nth-child(3) .step-icon::after { animation-delay: 1.5s; }
+    .step:nth-child(4) .step-icon::after { animation-delay: 2.25s; }
+    @keyframes stepPulse {
+      0%,100% { transform: scale(1);   opacity: .4; }
+      50%      { transform: scale(1.1); opacity: .9; }
+    }
+
+    .step-num {
+      position: absolute; top: -8px; right: -8px;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--amber); color: white;
+      font-family: 'Playfair Display', serif; font-size: .8rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .step h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--cream);
+      margin-bottom: .6rem;
+    }
+    .step p {
+      font-size: .83rem; color: rgba(245,226,184,.55);
+      line-height: 1.65; text-align: center;
+    }
+    .step-arrow {
+      position: absolute; top: 46px; right: -16px;
+      color: rgba(232,168,62,.35); font-size: 1.2rem;
+      z-index: 2;
+    }
+
+    /* ── COMPARISON TABLE ─────────────────────────────── */
+    .comparison {
+      background: var(--cream);
+    }
+    .comparison .section-label { justify-content: center; }
+    .comparison .section-label::after { display: none; }
+    .comparison-header { text-align: center; margin-bottom: 3.5rem; }
+    .comparison-header h2 { color: var(--deep); margin-bottom: .5rem; }
+    .comparison-header h2 span { color: var(--amber); font-style: italic; }
+    .comparison-header p { color: #7a5030; font-size: .95rem; line-height: 1.7; }
+
+    .comp-table {
+      max-width: 860px; margin: 0 auto;
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(60,26,8,.12);
+    }
+    .comp-head {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      background: var(--deep);
+    }
+    .comp-head-cell {
+      padding: 1.2rem 1.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--cream);
+    }
+    .comp-head-cell.highlight {
+      background: var(--amber);
+      color: white; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: .3rem;
+    }
+    .comp-head-cell.highlight small {
+      font-family: 'Lora', serif;
+      font-size: .7rem; font-weight: 400; letter-spacing: .08em; opacity: .85;
+    }
+    .comp-head-cell:last-child { text-align: center; background: rgba(255,255,255,.06); }
+
+    .comp-row {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      border-bottom: 1px solid rgba(200,114,42,.1);
+      transition: background .2s;
+    }
+    .comp-row:last-child { border-bottom: none; }
+    .comp-row:nth-child(odd)  { background: white; }
+    .comp-row:nth-child(even) { background: rgba(245,226,184,.35); }
+    .comp-row:hover { background: rgba(200,114,42,.07); }
+
+    .comp-cell {
+      padding: 1rem 1.8rem;
+      font-size: .88rem; color: var(--deep);
+      display: flex; align-items: center;
+    }
+    .comp-cell.feature { font-weight: 600; color: var(--deep); }
+    .comp-cell.center { justify-content: center; text-align: center; }
+    .comp-cell.good {
+      color: #2d7a2d; font-weight: 600;
+      justify-content: center;
+    }
+    .comp-cell.bad {
+      color: #a03020; font-weight: 500;
+      justify-content: center;
+    }
+    .check-icon  { font-size: 1.1rem; margin-right: .3rem; }
+    .cross-icon  { font-size: 1.1rem; margin-right: .3rem; color: #a03020; }
+
+    /* ── FAQ ACCORDION ────────────────────────────────── */
+    .faq {
+      background: var(--light);
+    }
+    .faq-inner {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start;
+    }
+    .faq-left h2 { color: var(--deep); margin-bottom: .6rem; }
+    .faq-left h2 span { color: var(--amber); font-style: italic; }
+    .faq-left p { color: #5a3a1a; line-height: 1.8; margin-bottom: 2rem; font-size: .95rem; }
+    .faq-cta {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: var(--amber); color: white;
+      padding: .8rem 1.8rem; border-radius: 2px;
+      font-family: 'Lora', serif; font-size: .88rem;
+      letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+      text-decoration: none; transition: background .25s, transform .2s;
+    }
+    .faq-cta:hover { background: var(--rust); transform: translateY(-2px); }
+
+    .faq-list { display: flex; flex-direction: column; gap: .8rem; }
+    .faq-item {
+      background: white;
+      border: 1px solid rgba(200,114,42,.15);
+      border-radius: 4px; overflow: hidden;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .faq-item.open {
+      border-color: rgba(200,114,42,.4);
+      box-shadow: 0 4px 20px rgba(60,26,8,.08);
+    }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.5rem; cursor: pointer;
+      user-select: none;
+      font-family: 'Playfair Display', serif;
+      font-size: .97rem; color: var(--deep); font-weight: 600;
+      gap: 1rem;
+    }
+    .faq-q:hover { background: rgba(200,114,42,.04); }
+    .faq-chevron {
+      flex-shrink: 0; width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(200,114,42,.1);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .3s, background .25s;
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      background: var(--amber);
+    }
+    .faq-chevron svg { width: 12px; height: 12px; stroke: var(--amber); transition: stroke .25s; }
+    .faq-item.open .faq-chevron svg { stroke: white; }
+
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s ease, padding .3s ease;
+      padding: 0 1.5rem;
+    }
+    .faq-a-inner {
+      padding-bottom: 1.2rem;
+      font-size: .88rem; color: #5a3a1a; line-height: 1.75;
+      border-top: 1px solid rgba(200,114,42,.1);
+      padding-top: .9rem;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    /* ── SCROLL PROGRESS BAR ──────────────────────────── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; z-index: 200;
+      height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--amber), var(--gold));
+      transition: width .1s linear;
+      pointer-events: none;
+    }
+
     /* ── RESPONSIVE ───────────────────────────────────── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
@@ -604,6 +856,12 @@
       .hero-visual { display: none; }
       .hero-text { padding: 5rem 2rem 3rem; }
       .hero-stats { position: static; margin-top: 2.5rem; }
+      .timeline { grid-template-columns: 1fr 1fr; gap: 3rem; }
+      .timeline::before { display: none; }
+      .step-arrow { display: none; }
+      .comp-head, .comp-row { grid-template-columns: 1.5fr 1fr 1fr; }
+      .comp-cell { padding: .8rem 1rem; font-size: .8rem; }
+      .faq-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .about, .benefits, .contact { grid-template-columns: 1fr; gap: 3rem; }
       footer { flex-direction: column; text-align: center; padding: 2rem; }
       .form-row { grid-template-columns: 1fr; }
@@ -611,6 +869,7 @@
   </style>
 </head>
 <body>
+<div id="progress-bar"></div>
 
 <!-- ── NAV ──────────────────────────────────────────────────── -->
 <nav>
@@ -618,8 +877,10 @@
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#products">Products</a>
+    <a href="#process">Process</a>
     <a href="#benefits">Benefits</a>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="nav-cta">Enquire Now</a>
   </div>
 </nav>
 
@@ -930,6 +1191,105 @@
   </div>
 </section>
 
+<!-- ── HOW IT'S MADE ──────────────────────────────────────────── -->
+<section class="process reveal" id="process">
+  <div class="section-label">The Process</div>
+  <h2>How Our <span>Jaggary</span> is Made</h2>
+  <p class="process-sub">Every batch follows a centuries-old tradition — from the sugarcane field to your table, with zero shortcuts and zero chemicals.</p>
+
+  <div class="timeline">
+
+    <div class="step">
+      <div class="step-icon">
+        <span class="step-num">1</span>
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Sugarcane stalk -->
+          <line x1="24" y1="40" x2="24" y2="8"  stroke="#E8A83E" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="20" y1="36" x2="24" y2="28" stroke="#C8722A" stroke-width="2" stroke-linecap="round"/>
+          <line x1="28" y1="30" x2="24" y2="22" stroke="#C8722A" stroke-width="2" stroke-linecap="round"/>
+          <line x1="20" y1="24" x2="24" y2="16" stroke="#C8722A" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="24" cy="8" r="3" fill="#E8A83E"/>
+          <!-- Ground line -->
+          <line x1="12" y1="42" x2="36" y2="42" stroke="#E8A83E" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          <!-- Sun -->
+          <circle cx="38" cy="12" r="4" fill="none" stroke="#E8A83E" stroke-width="1.5"/>
+          <line x1="38" y1="6"  x2="38" y2="4"  stroke="#E8A83E" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="44" y1="12" x2="46" y2="12" stroke="#E8A83E" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="42" y1="8"  x2="44" y2="6"  stroke="#E8A83E" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Harvest</h3>
+      <p>Fresh sugarcane is hand-cut from local Uttarakhand farms at peak ripeness, when natural sugar content is highest.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <span class="step-num">2</span>
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Press / crusher rollers -->
+          <circle cx="18" cy="22" r="7" stroke="#E8A83E" stroke-width="2"/>
+          <circle cx="30" cy="22" r="7" stroke="#E8A83E" stroke-width="2"/>
+          <circle cx="18" cy="22" r="2" fill="#C8722A"/>
+          <circle cx="30" cy="22" r="2" fill="#C8722A"/>
+          <!-- Juice drops -->
+          <path d="M24 32 Q22 37 24 40 Q26 37 24 32 Z" fill="#E8A83E" opacity="0.8"/>
+          <path d="M30 34 Q29 38 30 40 Q31 38 30 34 Z" fill="#E8A83E" opacity="0.5"/>
+          <!-- Stalks entering press -->
+          <path d="M4 20 L11 22" stroke="#C8722A" stroke-width="2" stroke-linecap="round"/>
+          <path d="M4 24 L11 22" stroke="#C8722A" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Press & Extract</h3>
+      <p>Sugarcane is crushed in traditional iron presses to extract pure, fresh juice — no solvents, no chemicals involved.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <span class="step-num">3</span>
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Cauldron / vessel -->
+          <path d="M10 18 Q10 38 24 38 Q38 38 38 18 Z" stroke="#E8A83E" stroke-width="2" fill="rgba(200,114,42,0.15)"/>
+          <line x1="8"  y1="18" x2="40" y2="18" stroke="#E8A83E" stroke-width="2" stroke-linecap="round"/>
+          <line x1="12" y1="18" x2="10" y2="22" stroke="#C8722A" stroke-width="2" stroke-linecap="round"/>
+          <line x1="36" y1="18" x2="38" y2="22" stroke="#C8722A" stroke-width="2" stroke-linecap="round"/>
+          <!-- Steam wisps -->
+          <path d="M18 14 Q16 10 18 6" stroke="#E8A83E" stroke-width="1.5" stroke-linecap="round" opacity="0.6">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+          </path>
+          <path d="M24 12 Q22 8 24 4" stroke="#E8A83E" stroke-width="1.5" stroke-linecap="round" opacity="0.8">
+            <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.8s" repeatCount="indefinite"/>
+          </path>
+          <path d="M30 14 Q28 10 30 6" stroke="#E8A83E" stroke-width="1.5" stroke-linecap="round" opacity="0.5">
+            <animate attributeName="opacity" values="0.5;1;0.5" dur="2.3s" repeatCount="indefinite"/>
+          </path>
+          <!-- Fire / heat -->
+          <path d="M16 40 Q18 36 20 40 Q22 36 24 40 Q26 36 28 40 Q30 36 32 40" stroke="#C8722A" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+        </svg>
+      </div>
+      <h3>Slow Cook</h3>
+      <p>Juice is slow-cooked in open iron pans over natural heat. Constant stirring ensures even concentration without burning.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <span class="step-num">4</span>
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Jaggery block/mould -->
+          <rect x="10" y="22" width="28" height="18" rx="3" stroke="#E8A83E" stroke-width="2" fill="rgba(200,114,42,0.2)"/>
+          <!-- Block grid lines -->
+          <line x1="24" y1="22" x2="24" y2="40" stroke="#E8A83E" stroke-width="1" opacity="0.4"/>
+          <line x1="10" y1="31" x2="38" y2="31" stroke="#E8A83E" stroke-width="1" opacity="0.4"/>
+          <!-- Sparkle / stars — quality symbol -->
+          <path d="M24 8 L25.2 11.6 L29 11.6 L26 14 L27.2 17.6 L24 15.2 L20.8 17.6 L22 14 L19 11.6 L22.8 11.6 Z" fill="#E8A83E" opacity="0.9"/>
+        </svg>
+      </div>
+      <h3>Set & Pack</h3>
+      <p>Thickened syrup is poured into moulds or dried into powder. Set naturally, packed fresh — pure jaggery ready to deliver.</p>
+    </div>
+
+  </div>
+</section>
+
 <!-- ── BENEFITS ───────────────────────────────────────────────── -->
 <section class="benefits reveal" id="benefits">
   <div class="benefits-list">
@@ -994,6 +1354,131 @@
   </div>
 </section>
 
+<!-- ── COMPARISON TABLE ───────────────────────────────────────── -->
+<section class="comparison reveal" id="comparison">
+  <div class="comparison-header">
+    <div class="section-label">Why Switch</div>
+    <h2>Jaggery <span>vs</span> Refined Sugar</h2>
+    <p>See why health-conscious homes and food businesses are making the switch to natural jaggery.</p>
+  </div>
+
+  <div class="comp-table">
+    <div class="comp-head">
+      <div class="comp-head-cell" style="background:var(--deep);">Feature</div>
+      <div class="comp-head-cell highlight">
+        🟫 Jaggery
+        <small>Ashish Trading Co.</small>
+      </div>
+      <div class="comp-head-cell">⬜ Refined Sugar</div>
+    </div>
+
+    <div class="comp-row">
+      <div class="comp-cell feature">Processing Method</div>
+      <div class="comp-cell good"><span class="check-icon">✔</span> Traditional, minimal</div>
+      <div class="comp-cell bad"><span class="cross-icon">✘</span> Heavy industrial</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell feature">Chemicals Used</div>
+      <div class="comp-cell good"><span class="check-icon">✔</span> None</div>
+      <div class="comp-cell bad"><span class="cross-icon">✘</span> Sulphur, bleach</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell feature">Natural Minerals Retained</div>
+      <div class="comp-cell good"><span class="check-icon">✔</span> Iron, Calcium, Potassium</div>
+      <div class="comp-cell bad"><span class="cross-icon">✘</span> Stripped completely</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell feature">Energy Release</div>
+      <div class="comp-cell good"><span class="check-icon">✔</span> Slow, sustained</div>
+      <div class="comp-cell bad"><span class="cross-icon">✘</span> Rapid spike &amp; crash</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell feature">Glycemic Impact</div>
+      <div class="comp-cell good"><span class="check-icon">✔</span> Lower GI</div>
+      <div class="comp-cell bad"><span class="cross-icon">✘</span> High GI (100)</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell feature">Digestive Benefits</div>
+      <div class="comp-cell good"><span class="check-icon">✔</span> Aids digestion</div>
+      <div class="comp-cell bad"><span class="cross-icon">✘</span> No benefit</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell feature">Colour &amp; Appearance</div>
+      <div class="comp-cell good"><span class="check-icon">✔</span> Natural amber/brown</div>
+      <div class="comp-cell bad"><span class="cross-icon">✘</span> Artificially whitened</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell feature">Ayurvedic Approval</div>
+      <div class="comp-cell good"><span class="check-icon">✔</span> Highly recommended</div>
+      <div class="comp-cell bad"><span class="cross-icon">✘</span> Discouraged</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────────────────────── -->
+<section class="faq reveal" id="faq">
+  <div class="faq-inner">
+    <div class="faq-left">
+      <div class="section-label">FAQ</div>
+      <h2>Common <span>Questions</span></h2>
+      <p>Everything you need to know before placing your order with Ashish Trading Company.</p>
+      <a href="#contact" class="faq-cta">Still have questions? Ask us →</a>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What is the minimum order quantity?
+          <span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We accept orders starting from 10 kg for individual buyers. For bulk wholesale pricing, we recommend orders of 50 kg or more. Please mention your requirement in the enquiry form and we'll share the best pricing.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do you ship outside Uttarakhand?
+          <span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes, we supply across India. We work with trusted logistics partners to ensure safe, timely delivery of your jaggery order. Shipping charges depend on quantity and destination — contact us for a quote.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is your jaggery FSSAI certified?
+          <span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Our products are produced under food-safe conditions in compliance with FSSAI guidelines. Please reach out for documentation and quality details relevant to your business needs.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What is the shelf life of your jaggery?
+          <span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Traditional block jaggery has a shelf life of 6–12 months when stored in a cool, dry place away from moisture. Powdered jaggery lasts 3–6 months under similar conditions. Airtight packaging significantly extends freshness.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can I get custom packaging for my brand?
+          <span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes! We offer white-label and custom packaging options for retailers and brand owners. Get in touch via the enquiry form with your branding requirements and quantity, and we'll discuss the options available.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What's the difference between traditional block and powdered jaggery?
+          <span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Traditional block jaggery is set into solid cakes after cooking — great for sweets, cooking, and ayurvedic use. Powdered jaggery is the same product finely milled for easy dissolving — perfect for beverages, baking, and health drinks. Both have identical nutritional value.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ── CONTACT / FORM ─────────────────────────────────────────── -->
 <section class="contact reveal" id="contact">
   <div class="contact-info">
@@ -1006,7 +1491,7 @@
         <span class="contact-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8A83E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
         <div class="contact-item-text">
           <strong>Email</strong>
-          epromotors@gmail.com
+          <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="224752504d4f4d564d505162454f434b4e0c414d4f">[email&#160;protected]</a>
         </div>
       </div>
       <div class="contact-item">
@@ -1097,43 +1582,102 @@
 </footer>
 
 <script>
-  // Scroll reveal - add pre-reveal only after DOM ready, with fallback
-  const revealEls = document.querySelectorAll('.reveal');
-  
-  // Add pre-reveal class to hide initially
-  revealEls.forEach(el => el.classList.add('pre-reveal'));
+  /* ── SCROLL PROGRESS BAR ── */
+  const progressBar = document.getElementById('progress-bar');
+  function updateProgress() {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    if (progressBar) progressBar.style.width = Math.min(100, (scrolled / total) * 100) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
 
-  // Fallback: show all after 1.5s in case observer doesn't fire
+  /* ── PARALLAX on hero SVG mountains ── */
+  const heroBg   = document.querySelector('.hero-bg');
+  const heroGlow = document.querySelector('.hero-glow');
+  function parallax() {
+    const y = window.scrollY;
+    if (heroBg)   heroBg.style.transform   = `translateY(${y * 0.28}px)`;
+    if (heroGlow) heroGlow.style.transform = `translateY(calc(-50% + ${y * 0.14}px))`;
+  }
+  window.addEventListener('scroll', parallax, { passive: true });
+
+  /* ── SCROLL REVEAL ── */
+  const revealEls = document.querySelectorAll('.reveal');
+  revealEls.forEach(el => el.classList.add('pre-reveal'));
   const fallbackTimer = setTimeout(() => {
     revealEls.forEach(el => el.classList.add('visible'));
+    animateSteps();
   }, 1500);
 
   if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
+    const revealObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          clearTimeout(fallbackTimer);
-        }
+        if (e.isIntersecting) { e.target.classList.add('visible'); clearTimeout(fallbackTimer); }
       });
     }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-    revealEls.forEach(el => observer.observe(el));
+    revealEls.forEach(el => revealObs.observe(el));
   } else {
-    // No observer support - show everything immediately
     revealEls.forEach(el => el.classList.add('visible'));
     clearTimeout(fallbackTimer);
   }
 
-  // Form submit
-  function submitForm() {
-    const name = document.getElementById('fname').value.trim();
-    const phone = document.getElementById('fphone').value.trim();
-    const product = document.getElementById('fproduct').value;
+  /* ── SCROLL COUNTER on hero stats ── */
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+  function animateCounter(el, target, suffix, duration) {
+    const start = performance.now();
+    (function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      el.textContent = Math.round(easeOut(p) * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    })(performance.now());
+  }
 
+  let countersStarted = false;
+  const statsEl = document.querySelector('.hero-stats');
+  if (statsEl && 'IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !countersStarted) {
+        countersStarted = true;
+        const s1 = document.querySelector('.stat:nth-child(1) .stat-num');
+        const s2 = document.querySelector('.stat:nth-child(2) .stat-num');
+        if (s1) animateCounter(s1, 100, '%', 1800);
+        if (s2) animateCounter(s2, 2,   '',  900);
+      }
+    }, { threshold: 0.6 }).observe(statsEl);
+  }
+
+  /* ── TIMELINE STEP ANIMATION ── */
+  function animateSteps() {
+    document.querySelectorAll('.step').forEach(s => s.classList.add('step-visible'));
+  }
+  const processSec = document.querySelector('.process');
+  if (processSec && 'IntersectionObserver' in window) {
+    const po = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { animateSteps(); po.disconnect(); }
+    }, { threshold: 0.15 });
+    po.observe(processSec);
+  }
+
+  /* ── FAQ ACCORDION ── */
+  function toggleFaq(questionEl) {
+    const item   = questionEl.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  /* ── FORM SUBMIT ── */
+  function submitForm() {
+    const name    = document.getElementById('fname').value.trim();
+    const phone   = document.getElementById('fphone').value.trim();
+    const product = document.getElementById('fproduct').value;
     if (!name || !phone || !product) {
       alert('Please fill in your Name, Phone, and Product of Interest.');
       return;
     }
-
     document.getElementById('enquiryForm').style.display = 'none';
-    document.getElem
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>
